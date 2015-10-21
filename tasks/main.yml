@@ -1,0 +1,42 @@
+---
+
+  - name: Cloud Init
+    template: 
+      src=domain.cfg.j2
+      dest=/etc/cloud/cloud.cfg.d/domain.cfg
+      mode=0644
+
+  - name: Configure hosts file
+    template:
+      src=hosts.j2
+      dest=/etc/hosts
+      mode=0644
+      owner=root
+
+  - name: Set hostname
+    hostname: name={{ansible_hostname}}.{{realm}}
+
+  - name: Set hostname file
+    template: 
+      src=hostname.j2
+      dest=/etc/hostname
+      mode=0644
+
+
+  - name: Configure resolv.conf file
+    template:
+      src=resolv.conf.j2
+      dest=/etc/resolv.conf
+      mode=0644
+      owner=root
+
+  - name: Install IPA packages
+    yum: name={{item}} state=present
+    with_items:
+      - ipa-client
+
+  - name: Configure IPA client
+    command: >
+      ipa-client-install -p admin -w {{ipapwd}} --mkhomedir -U
+
+
