@@ -36,7 +36,10 @@
       - ipa-client
 
   - name: Configure IPA client
-    command: >
-      ipa-client-install -p admin -w {{ipapwd}} --mkhomedir -U
+    command: ipa-client-install -p admin -w {{ipapwd}} --mkhomedir -U
+    args:
+      creates: /etc/ipa/default.conf
+      
+
 
 
