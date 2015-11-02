@@ -39,7 +39,7 @@
     command: ipa-client-install -p admin -w {{ipapwd}} --mkhomedir -U
     args:
       creates: /etc/ipa/default.conf
-      
 
-
+  - name: cloud init resolv.conf
+    lineinfile: dest=/etc/cloud/cloud.cfg line='manage-resolv-conf: false'      
 
