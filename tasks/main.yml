@@ -43,4 +43,5 @@
   - name: dhclient resolv.conf
     lineinfile: dest=/etc/dhcp/dhclient.conf create=true insertafter=EOF line="supersede domain-name-servers {{master1ip}}, {{master2ip}};"
 
-
+  - name: dhclient resolv.conf domain-search
+    lineinfile: dest=/etc/dhcp/dhclient.conf create=true insertafter=EOF line="supersede domain-search \"{{realm}}\";"
