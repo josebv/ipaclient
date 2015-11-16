@@ -5,6 +5,7 @@
       src=domain.cfg.j2
       dest=/etc/cloud/cloud.cfg.d/domain.cfg
       mode=0644
+    ignore_errors: True
 
   - name: Configure hosts file
     template:
@@ -15,6 +16,7 @@
 
   - name: Set hostname
     hostname: name={{ansible_hostname}}.{{realm}}
+    ignore_errors: True
 
   - name: Set hostname file
     template: 
