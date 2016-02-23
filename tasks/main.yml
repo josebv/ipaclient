@@ -24,7 +24,6 @@
       dest=/etc/hostname
       mode=0644
 
-
   - name: Configure resolv.conf file
     template:
       src=resolv.conf.j2
@@ -32,12 +31,20 @@
       mode=0644
       owner=root
 
+  - name: Install IPA packages Debian
+    when: ansible_os_family == 'Debian'
+    apt: name={{item}} state=present
+    with_items:
+      - freeipa-client
+
   - name: Install IPA packages
+    when: ansible_os_family == 'RedHat' and ansible_distribution != 'Amazon'
     yum: name={{item}} state=present
     with_items:
       - ipa-client
 
   - name: Configure IPA client
+    when: ansible_distribution != 'Amazon'
     command: ipa-client-install -p admin -w {{ipapwd}} --mkhomedir -U
     args:
       creates: /etc/ipa/default.conf
@@ -47,3 +54,5 @@
 
   - name: dhclient resolv.conf domain-search
     lineinfile: dest=/etc/dhcp/dhclient.conf create=true insertafter=EOF line="supersede domain-search \"{{realm}}\";"
+
+
