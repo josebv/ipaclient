@@ -1,6 +1,9 @@
 ---
-  realm: askYourDevOps
-  master1: askYourDevOps
-  master1ip: askYourDevOps
-  master2: askYourDevOps
-  master2ip: askYourDevOps
+realm: ipa.beenverified.com
+master1: ipamaster1.ipa.beenverified.com
+master1ip: 10.0.1.36
+master2: ipamaster2.ipa.beenverified.com
+master2ip: 10.0.1.183
+forwarder: 8.8.8.8
+  
+#  ipapwd: 
